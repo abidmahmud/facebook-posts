@@ -6,8 +6,7 @@ class Like extends React.Component {
             <>
                 <span className='inline' style={{ display: "float", }}>
                     <input type="comment" className="form-control" id="comment" placeholder="comment"></input>
-                    {this.props.icon}
-                    <i className="fa fa-thumbs-down" style={{ color: "grey", fontSize: "30px" }}></i>
+                    <i onClick={() => this.props.changeLike()}></i>
                 </span>
             </>
         );

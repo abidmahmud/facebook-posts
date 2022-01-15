@@ -3,59 +3,30 @@ import Like from './like.component';
 import "./posts.component.css"
 
 class Posts extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleNotClick = this.handleNotClick.bind(this);
-        this.handleClick = this.handleClick.bind(this);
-        this.state = {
-            isLiked: false,
-            date: new Date(),
-        };
+    state = {
+        id: this.props.id,
+        posts: this.props.posts,
+        like: this.props.like,
+        dislike: this.props.dislike,
+        date: new Date()
     }
 
-    handleClick() {
-        this.setState({ isLiked: false });
-    }
-
-    handleNotClick() {
-        this.setState({ isLiked: true });
-    }
-    handleAdd() {
-        console.log("New Post Created");
+    changeLike = () => {
+        const like = this.state.like;
+        like === true ?
+            this.setState({ className: 'fa fa-thumbs-up', color: "grey" }) :
+            this.setState({ className: 'fa fa-thumbs-up', color: "green" });
+        like != like;
+        this.setState({ like })
     }
 
     render() {
-        const isLiked = this.state.isLiked;
-        let icon;
-
-        if (isLiked) {
-            icon =
-                <i
-                    className='fa fa-thumbs-up'
-                    style={{ color: "green", fontSize: "30px" }}
-                    onClick={this.handleClick}
-                ></i>
-        } else {
-            icon =
-                <i
-                    className='fa fa-thumbs-up'
-                    style={{ color: "grey", fontSize: "30px" }}
-                    onClick={this.handleNotClick}
-                ></i>
-        }
-
+        const { id, name, content, handleRemove } = this.props;
         return (
             <>
-                <button
-                    style={{ marginLeft: '1rem' }}
-                    className='btn btn-primary'
-                    onClick={this.handleAdd}>
-                    Add New Post
-                </button>
-
                 <div className='card' style={{ marginLeft: '1rem', width: '25rem' }}>
                     <div className='card-body'>
-                        <h5 className='card-title'>{this.props.name}</h5>
+                        <h5 className='card-title'>{name}</h5>
 
                         <hr />
 
@@ -67,13 +38,13 @@ class Posts extends React.Component {
 
                         <hr />
 
-                        <p className='card-text'>{this.props.content}</p>
+                        <p className='card-text'>{content}</p>
 
                         <hr />
 
-                        <Like icon={icon} />
+                        <Like changeLike={this.changeLike()} />
 
-                        <button className='btn btn-warning' onClick={this.props.handleRemove}>Remove</button>
+                        <button onClick={() => handleRemove(id)} className='btn btn-warning' >Remove</button>
 
                     </div>
                 </div>
